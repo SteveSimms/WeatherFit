@@ -14,9 +14,12 @@ export class AppComponent {
 
   _weatherService = inject(WeatherService);
   weatherResponse: any = signal(this._weatherService);
+  geoCodedWeatherResponse: any = signal(this._weatherService);
 
   ngOnInit(): void {
     const weather = this._weatherService.getWeather();
     this.weatherResponse.set(weather);
+    const geoCodedWeather = this._weatherService.searchWeather('Menifee', 'en');
+    this.geoCodedWeatherResponse.set(geoCodedWeather);
   }
 }
