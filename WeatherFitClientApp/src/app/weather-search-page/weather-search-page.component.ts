@@ -18,17 +18,7 @@ import {
   selector: 'app-weather-search-page',
   standalone: true,
   imports: [FormsModule],
-  template: `<div>
-      <label for="location">Location</label>
-      <input [(ngModel)]="location" id="location" />
-    </div>
-
-    <div>
-      <label for="language">Language</label>
-      <input type="text" [(ngModel)]="language" id="language" />
-    </div>
-
-    <button (click)="onSubmit()">Search</button>`,
+  templateUrl: './weather-search-page.component.html', // Updated the templateUrl to the correct file path
   styleUrl: './weather-search-page.component.scss',
 })
 export class WeatherSearchPageComponent {
