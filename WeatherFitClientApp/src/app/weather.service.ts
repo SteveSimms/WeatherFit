@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http'; // Import the HttpClient modu
 })
 export class WeatherService {
   private http = inject(HttpClient); // Inject the HttpClient module
-  public geoCodeData = signal([]);
+  public geoCodeData: any = signal([]);
   async getWeather() {
     try {
       const response = fetch('http://localhost:3000/api/forecast');

@@ -39,7 +39,7 @@ export class WeatherSearchPageComponent {
     //todo: make this a global signal and use update to set the value
     // const formObject = { loc: this.location(), lang: this.language() };
 
-    console.log('Here()', this._weatherService.geoCodeData());
+    console.log('Here()', this._weatherService.geoCodeData().results);
   }
 
   async onGetGeoCodedWeather() {
