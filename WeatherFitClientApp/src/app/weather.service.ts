@@ -16,4 +16,17 @@ export class WeatherService {
       throw error;
     }
   }
+
+  async searchWeather(location: string, lang: string) {
+    try {
+      const response = fetch(
+        `http://localhost:3000/api/forecast/${location}/${lang}`,
+      );
+      const data = await (await response).json();
+      console.log('Geo', data);
+    } catch (error) {
+      console.error('Error:', error);
+      throw error;
+    }
+  }
 }

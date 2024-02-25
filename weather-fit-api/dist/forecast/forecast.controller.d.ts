@@ -4,5 +4,6 @@ export declare class ForecastController {
     constructor(forecastService: ForecastService);
     findAll(): any;
     findOne(id: string): string;
+    search(location: string, lang: string): Promise<any>;
     remove(id: string): string;
 }

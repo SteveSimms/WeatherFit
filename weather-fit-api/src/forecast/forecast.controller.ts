@@ -31,6 +31,11 @@ export class ForecastController {
   findOne(@Param('id') id: string) {
     return this.forecastService.findOne(+id);
   }
+  @Get(':location/:lang')
+  search(@Param('location') location: string, @Param('lang') lang: string) {
+    console.log(location, lang);
+    return this.forecastService.search(location, lang);
+  }
 
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateForecastDto: UpdateForecastDto) {
