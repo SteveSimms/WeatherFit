@@ -23,33 +23,28 @@ import {
 })
 export class WeatherSearchPageComponent {
   _weatherService = inject(WeatherService);
-  geoCodedWeatherResponse: any = signal(this._weatherService);
-
+  //todo: refactor to use signal forms or reactive form builder
   location = signal('');
   language = signal('');
 
-  formModel = createFormGroup({
-    location: createFormField(''),
-    language: createFormField(''),
-  });
-
-  ngOnInit(): void {
-    // const geoCodedWeather = this._weatherService.searchWeather('Menifee', 'en');
-    // this.geoCodedWeatherResponse.set(geoCodedWeather);
-  }
+  ngOnInit(): void {}
 
   private debug = effect(() => {
-    console.log('value:', this.formModel.value());
-    console.log('valid:', this.formModel.valid());
+    console.log('value:', this.location());
+    console.log('valid:', this.language());
   });
 
-  onSubmit() {
-    const geoCodedWeather = this._weatherService.searchWeather(
-      this.location(),
-      this.language(),
-    );
-    const formObject = { loc: this.location(), lang: this.language() };
-    this.geoCodedWeatherResponse.set(geoCodedWeather);
-    console.log(formObject);
+  async onSubmit() {
+    const geoCodedWeatherQuery = await this.onGetGeoCodedWeather(); //calls weather service
+    //todo: make this a global signal and use update to set the value
+    // const formObject = { loc: this.location(), lang: this.language() };
+
+    console.log('Here()', this._weatherService.geoCodeData());
+  }
+
+  async onGetGeoCodedWeather() {
+    //todo: call weather service
+    await this._weatherService.searchWeather(this.location(), this.language());
+    return await this._weatherService.geoCodeData();
   }
 }
