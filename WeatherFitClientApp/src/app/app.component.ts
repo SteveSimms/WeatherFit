@@ -18,8 +18,8 @@ export class AppComponent {
 
   ngOnInit(): void {
     const weather = this._weatherService.getWeather();
-    this.weatherResponse.set(weather);
-    const geoCodedWeather = this._weatherService.searchWeather('Menifee', 'en');
-    this.geoCodedWeatherResponse.set(geoCodedWeather);
+    // this.weatherResponse.set(weather);
+    // const geoCodedWeather = this._weatherService.searchWeather('Menifee', 'en');
+    // this.geoCodedWeatherResponse.set(geoCodedWeather);
   }
 }
