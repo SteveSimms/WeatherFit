@@ -15,11 +15,18 @@
       </svg>
       <input [(ngModel)]="language" type="text" class="grow " placeholder="Language" id="language" name="language" />
     </label>
-    <button class="btn btn-secondary mt-2" type="button" (click)="onSubmit()">Search</button>
+    <button class="btn btn-primary mt-2" type="button" (click)="onSubmit()">Search</button>
   </form>
+
+  @defer {
+  @if(_weatherService.geoCodeData().results){
   @for( geoData of _weatherService.geoCodeData().results; track _weatherService.geoCodeData().results.id){
   <p>{{geoData.name}}</p>
-
   }
+  }
+  } @loading (after 100ms;minimum 1s) {
+  <span class="loading loading-bars loading-xs"></span>
+  }
+
 
 </div>
