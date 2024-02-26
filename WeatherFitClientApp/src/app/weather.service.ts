@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http'; // Import the HttpClient modu
 export class WeatherService {
   private http = inject(HttpClient); // Inject the HttpClient module
   public geoCodeData: any = signal([]);
+  public currentLocalWeatherData: any = signal(null);
+
   async getWeather() {
     try {
       const response = fetch('http://localhost:3000/api/forecast');
@@ -26,6 +28,22 @@ export class WeatherService {
       this.geoCodeData.update(() => data);
       console.log('Geo signal', this.geoCodeData());
       return this.geoCodeData();
+    } catch (error) {
+      console.error('Error:', error);
+      throw error;
+    }
+  }
+  async searchWeatherByLatLong(lat: number, long: number) {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/forecast/tempreture/${lat}/${long}`,
+      );
+
+      const data = await response.json();
+
+      this.currentLocalWeatherData.set(data);
+      console.log(this.currentLocalWeatherData());
+      return this.currentLocalWeatherData();
     } catch (error) {
       console.error('Error:', error);
       throw error;

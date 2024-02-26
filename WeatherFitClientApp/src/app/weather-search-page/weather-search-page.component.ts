@@ -26,8 +26,16 @@ export class WeatherSearchPageComponent {
   //todo: refactor to use signal forms or reactive form builder
   location = signal('');
   language = signal('');
-
-  ngOnInit(): void {}
+  //todo: pass the  lat long to the wether service and get tmepreture info from the api
+  lat = signal(0);
+  long = signal(0);
+  
+  currentLocalWeatherData = signal(null);
+  ngOnInit(): void {
+    if (navigator.geolocation) {
+      this.detectGeoLocationOnInit();
+    }
+  }
 
   private debug = effect(() => {
     console.log('value:', this.location());
@@ -46,5 +54,26 @@ export class WeatherSearchPageComponent {
     //todo: call weather service
     await this._weatherService.searchWeather(this.location(), this.language());
     return await this._weatherService.geoCodeData();
+  }
+
+  async detectGeoLocationOnInit() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        this.lat.set(latitude);
+        this.long.set(longitude);
+        console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+        await this.getWeatherByLatLong();
+      });
+    } else {
+      console.log('Geolocation is not supported by this browser.');
+    }
+  }
+
+  async getWeatherByLatLong() {
+    await this._weatherService.searchWeatherByLatLong(this.lat(), this.long());
+    console.log('HERE', this._weatherService.currentLocalWeatherData());
+    return await this._weatherService.currentLocalWeatherData();
   }
 }

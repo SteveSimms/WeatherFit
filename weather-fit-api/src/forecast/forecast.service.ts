@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import {
-  weatherForecastResponse,
-  geoCodedForecastResponse,
-  fetchGeoResponses,
-} from './utils/forecastUtil';
+import { weatherForecastResponse } from './utils/forecastUtil';
+import { log } from 'node:console';
 // import { CreateForecastDto } from './dto/create-forecast.dto';
 // import { UpdateForecastDto } from './dto/update-forecast.dto';
 
@@ -37,8 +34,20 @@ export class ForecastService {
       { method: 'GET' },
     );
     const data = (await res).json();
-    console.log('data', data);
+    // console.log('data', data);
     return data;
     // return fetchGeoResponses(location, lang);
+  }
+
+  async searchTempretureByLatLong(latitude: number, longitude: number) {
+    console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+    const response = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m`,
+      { method: 'GET' },
+    );
+    const data = await response.json();
+    // console.log('Service', data);
+    log('temp data ', data);
+    return await data;
   }
 }

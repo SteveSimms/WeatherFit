@@ -37,11 +37,22 @@ export class ForecastController {
     return this.forecastService.search(location, lang);
   }
 
+  @Get('tempreture/:latitude/:longitude')
+  async searchTempretureByLatLong(
+    @Param('latitude') latitude,
+    @Param('longitude') longitude,
+  ) {
+    // console.log('Controller', latitude, longitude);
+    return await this.forecastService.searchTempretureByLatLong(
+      latitude,
+      longitude,
+    );
+  }
+
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateForecastDto: UpdateForecastDto) {
   //   return this.forecastService.update(+id, updateForecastDto);
   // }
-
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.forecastService.remove(+id);

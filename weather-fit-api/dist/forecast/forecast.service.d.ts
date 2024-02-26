@@ -3,4 +3,5 @@ export declare class ForecastService {
     findOne(id: number): string;
     remove(id: number): string;
     search(location: string, lang: string): Promise<any>;
+    searchTempretureByLatLong(latitude: number, longitude: number): Promise<any>;
 }
