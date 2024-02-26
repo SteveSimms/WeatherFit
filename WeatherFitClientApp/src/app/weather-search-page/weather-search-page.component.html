@@ -1,5 +1,5 @@
 <div class="flex justify-center w-full">
-  <form>
+  <form class="w-1/2">
     <label for="location" class="input input-bordered flex items-center gap-2">
       <input [(ngModel)]="location" type="text" class="grow" placeholder="Location" id="location" name="location" />
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70">
@@ -18,15 +18,54 @@
     <button class="btn btn-primary mt-2" type="button" (click)="onSubmit()">Search</button>
   </form>
 
-  @defer {
-  @if(_weatherService.geoCodeData().results){
-  @for( geoData of _weatherService.geoCodeData().results; track _weatherService.geoCodeData().results.id){
-  <p>{{geoData.name}}</p>
-  }
-  }
-  } @loading (after 100ms;minimum 1s) {
-  <span class="loading loading-bars loading-xs"></span>
-  }
-
+  <div class="w-1/2">
+    <!-- Your table goes here -->
+    <div class="overflow-x-auto">
+      @defer {
+      @if(_weatherService.geoCodeData().results){
+      <table class="table table-xs table-pin-rows table-pin-cols">
+        <thead>
+          <tr>
+            <th>City</th>
+            <td>State</td>
+            <td>County</td>
+            <td>Country Code</td>
+            <td>Timezone</td>
+            <td>Postal Codes</td>
+            <th></th>
+          </tr>
+        </thead>
+        @for( geoData of _weatherService.geoCodeData().results; track _weatherService.geoCodeData().results.id){
+        <tbody>
+          <tr>
+            <th>{{ geoData.name}}</th>
+            <td>{{ geoData.admin1}}</td>
+            <td>{{ geoData.admin2}}</td>
+            <td>{{ geoData.country}}</td>
+            <td>{{ geoData.country_code}}</td>
+            <td>{{ geoData.timezone}}</td>
+            <td>{{ geoData.postcodes}}</td>
+            <th>{{ geoData.id}}</th>
+          </tr>
+        </tbody>
+        }
+        <tfoot>
+          <tr>
+            <th>City</th>
+            <td>State</td>
+            <td>County</td>
+            <td>Country Code</td>
+            <td>Timezone</td>
+            <td>Postal Codes</td>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+      }
+      } @loading (after 100ms;minimum 1s) {
+      <span class="loading loading-bars loading-xs"></span>
+      }
+    </div>
+  </div>
 
 </div>
