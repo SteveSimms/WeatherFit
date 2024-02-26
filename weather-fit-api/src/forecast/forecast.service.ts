@@ -33,6 +33,7 @@ export class ForecastService {
     const res = await fetch(
       `https://geocoding-api.open-meteo.com/v1/search?name=${location}&count=10&language=${lang}&format=json`,
       // 'https://geocoding-api.open-meteo.com/v1/search?name=Berlin&count=10&language=en&format=json',
+      //todo: implement a way to retrieve the lat long from our location and recover the tempreture info https://api.open-meteo.com/v1/forecast?latitude=34.0522&longitude=-118.2437&hourly=temperature_2m pass the lat long dynamically to this endpoint
       { method: 'GET' },
     );
     const data = (await res).json();
