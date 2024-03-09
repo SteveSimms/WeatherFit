@@ -13,6 +13,7 @@ import {
   SignalInputDirective,
   V,
 } from 'ng-signal-forms';
+import {Input} from "@angular/core";
 
 @Component({
   selector: 'app-weather-search-page',
@@ -29,12 +30,17 @@ export class WeatherSearchPageComponent {
   //todo: pass the  lat long to the wether service and get tmepreture info from the api
   lat = signal(0);
   long = signal(0);
-  
+  //todo: conditionally render table on click and display tempreture inofo
+  isLocalTempData = signal(false);
+  isSearchTableData = signal(false);
   currentLocalWeatherData = signal(null);
+
+  @Input() coordinate = '';
   ngOnInit(): void {
     if (navigator.geolocation) {
       this.detectGeoLocationOnInit();
     }
+    console.log('coordinate', this.coordinate);
   }
 
   private debug = effect(() => {

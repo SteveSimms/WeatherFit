@@ -57,7 +57,8 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
@@ -103,6 +104,9 @@
     }
   },
   "cli": {
-    "analytics": "4c53325e-beb9-4907-9786-41f875464bb6"
+    "analytics": "4c53325e-beb9-4907-9786-41f875464bb6",
+    "cache": {
+      "enabled": false
+    }
   }
 }
