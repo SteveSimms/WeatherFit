@@ -1,6 +1,6 @@
 import { WeatherService } from '../../../services/weather.service';
 import { OpenAiService } from '../../../services/open-ai.service';
-import { Component, SimpleChanges, inject, input } from '@angular/core';
+import { Component, SimpleChanges, inject, input, signal } from '@angular/core';
 
 @Component({
   selector: 'display-location',
@@ -10,12 +10,19 @@ import { Component, SimpleChanges, inject, input } from '@angular/core';
     <div class="card w-96 bg-neutral text-neutral-content">
       <div class="card-body items-center text-center">
         <h2 class="card-title">{{ selectedLocation().name }}</h2>
-        <p>Click to see outfit options for {{ selectedLocation().name }}</p>
+        @if (isClothingSuggestions()) {
+          <p>
+            {{ aiWeatherService.clothingSuggestions().suggestion }}
+          </p>
+        }
+
         <div class="card-actions justify-end">
           <button (click)="getWeatherSuggestions()" class="btn btn-primary">
-            Get Suggestions
+            See Suggestions {{ toggleSuggestions() }}
           </button>
-          <button class="btn btn-ghost">Deny</button>
+          <button (click)="toggleSuggestionsVisibility()" class="btn btn-ghost">
+            Hide Suggestions
+          </button>
         </div>
       </div>
     </div>
@@ -23,9 +30,11 @@ import { Component, SimpleChanges, inject, input } from '@angular/core';
   styleUrl: './weather-display-location.component.css',
 })
 export class DisplayLocationComponent {
-  protected selectedLocation = input.required<any>();
-  protected aiWeatherService = inject(OpenAiService);
-  protected weatherService = inject(WeatherService);
+  selectedLocation = input.required<any>();
+  aiWeatherService = inject(OpenAiService);
+  weatherService = inject(WeatherService);
+  isClothingSuggestions = signal<boolean>(false);
+  toggleSuggestions = signal<boolean>(false);
   ngOnInit(): void {
     console.log('Set location', this.selectedLocation());
     console.log(this.aiWeatherService.clothingSuggestions());
@@ -44,6 +53,11 @@ export class DisplayLocationComponent {
       'currentLocalWeatherData()',
       this.weatherService.currentLocalWeatherData(),
     );
+    this.isClothingSuggestions.set(true);
+  }
+
+  toggleSuggestionsVisibility() {
+    this.toggleSuggestions.set(true);
   }
 }
 

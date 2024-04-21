@@ -22,6 +22,7 @@ export class OpenAiService {
     const data = await response.json();
     console.log('response', data);
     this.clothingSuggestions.set(data);
-    return this.clothingSuggestions;
+    console.log('this.clothingSuggestions()', this.clothingSuggestions());
+    return this.clothingSuggestions();
   }
 }
