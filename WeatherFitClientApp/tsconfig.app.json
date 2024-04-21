@@ -14,5 +14,9 @@
   ],
   "include": [
     "src/**/*.d.ts"
-  ]
+  ],
+  "paths": {
+    "@weather": ["WeatherFitClientApp/src/app/weather"]
+
+  }
 }

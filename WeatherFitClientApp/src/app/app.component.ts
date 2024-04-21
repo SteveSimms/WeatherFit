@@ -1,6 +1,6 @@
 import { Component, signal, inject } from '@angular/core';
-import {RouterLink, RouterOutlet} from '@angular/router';
-import { WeatherService } from './weather.service';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { WeatherService } from './weather-page/services/weather.service';
 
 @Component({
   selector: 'app-root',

@@ -1,0 +1,53 @@
+<div class="overflow-x-auto"></div>
+@if( !isLocationSelected ){
+<table class="table table-xs table-pin-rows table-pin-cols">
+  <thead>
+    <tr>
+      <th>City</th>
+      <td>State</td>
+      <td>County</td>
+      <td>Country </td>
+      <td>Country Code</td>
+      <td>Timezone</td>
+      <td>Postal Codes</td>
+      <th></th>
+    </tr>
+  </thead>
+  @if(searchResults().length > 0){
+
+  @for( data of searchResults() ; track searchResults().length){
+
+  <tbody>
+    <tr (click)="onShowLocationComponent(data)">
+      <th>
+      </th>
+      <th>{{ data.name }}</th>
+      <td>{{ data.admin1}}</td>
+      <td>{{ data.admin2}}</td>
+      <td>{{ data.country}}</td>
+      <td>{{ data.timezone}}</td>
+      <td>{{ data.country_code}}</td>
+      <td>{{ data.postalcodes}}</td>
+
+    </tr>
+
+  </tbody>
+  }
+  }
+  <tfoot>
+    <tr>
+      <th>City</th>
+      <td>State</td>
+      <td>County</td>
+      <td>Country </td>
+      <td>Country Code</td>
+      <td>Timezone</td>
+      <td>Postal Codes</td>
+      <th></th>
+    </tr>
+  </tfoot>
+</table>
+}
+@if( isLocationSelected ){
+<display-location [selectedLocation]="selectedLocationParent()" />
+}

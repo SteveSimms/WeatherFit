@@ -1,12 +1,22 @@
-import { Routes } from '@angular/router';
+import { ResolveFn, Routes } from '@angular/router';
+import { WeatherService } from './weather-page/services/weather.service';
+import { inject } from '@angular/core';
+import { weatherResolver } from './weather-page/resolvers/weather.resolver';
 
 export const routes: Routes = [
-  { loadComponent: () => import ('./weather-search-page/weather-search-page.component').then((c)=> c.WeatherSearchPageComponent ), path: 'weather-search',
-    data: {
-      coordinate: -112, long: 110293,
-      geoLocation:{}
-
-  } }, //: lazy load
+  {
+    loadComponent: () =>
+      import('./weather-page/weather-search-page.component').then(
+        (c) => c.WeatherSearchPageComponent,
+      ),
+    path: 'weather-search',
+    resolve: { weatherResolver },
+    //   resolve: {
+    //     coordinate: getGeoData, //todo: get lat and long from browser via service
+    //     geoLocation:{}
+    //
+    // }
+  }, //: lazy load
   //todo: default route and not found
 ];
 
