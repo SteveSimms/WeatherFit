@@ -40,15 +40,16 @@ export class DisplayLocationComponent {
     console.log(this.aiWeatherService.clothingSuggestions());
   }
   protected getWeatherSuggestions() {
-    this.aiWeatherService.getClothingSuggestions(
-      this.selectedLocation().name,
-      80,
-    );
     this.weatherService.searchWeatherByLatLong(
       this.selectedLocation().latitude,
       this.selectedLocation().longitude,
     ),
-      console.log('her3e', this.aiWeatherService.clothingSuggestions());
+      this.aiWeatherService.getClothingSuggestions(
+        this.selectedLocation().name,
+        this.weatherService.currentLocalWeatherData().current.temperature_2m,
+      );
+
+    console.log('her3e', this.aiWeatherService.clothingSuggestions());
     console.log(
       'currentLocalWeatherData()',
       this.weatherService.currentLocalWeatherData(),
@@ -84,3 +85,9 @@ export class DisplayLocationComponent {
 //     );
 //   };
 // }
+
+// current: {
+//     time: '2024-04-21T22:00',
+//     interval: 900,
+//     temperature_2m: 29.8
+//   }
